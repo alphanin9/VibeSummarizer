@@ -18,7 +18,9 @@ impl fmt::Display for MisuseError {
     }
 }
 
-static PROMPT: &str = r"Analyze the following codebase for an A/D CTF service.
+static PROMPT: &str = r"You are an expert CTF player.
+
+Analyze the following codebase for an A/D CTF service.
 Describe what components it consists of, what programming languages the components use and what the service's intended purpose is.
 The service likely has multiple vulnerabilities that require patches. Attempt to find said vulnerabilities. If possible, provide example patches.
 Attempt to find places where flags may be stored.
