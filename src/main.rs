@@ -71,16 +71,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }?;
 
-    let client = Gemini::with_model(api_key, "gemini-2.5-flash-preview-09-2025".to_string())?;
+    let client = Gemini::pro(api_key)?;
 
     let dir = Path::new(&argv[1]);
     let mut data = Vec::new();
 
     gather_dir_entries(dir, &mut data)?;
 
+    let prompt = format!("{PROMPT}\n{}", data.join("\n"));
+
+    std::fs::write("prompt.md", &prompt)?;
+
     let clanker_data_future = client
         .generate_content()
-        .with_user_message(format!("{PROMPT}\n{}", data.join("\n")))
+        .with_user_message(prompt)
         .execute_stream();
 
     println!("Waiting for clanker...");
