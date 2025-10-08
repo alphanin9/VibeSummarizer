@@ -69,7 +69,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }?;
 
-    let client = Gemini::new(api_key)?;
+    let client = Gemini::with_model(api_key, "gemini-2.5-flash-preview-09-2025".to_string())?;
 
     let dir = Path::new(&argv[1]);
     let mut data = Vec::new();
